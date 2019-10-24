@@ -104,7 +104,53 @@ const teachersController = {
             response.body = JSON.stringify({err});
             console.log(err);
             res.status(response.statusCode).send(response.body);
-        }); }
+        }); },
+
+    //2
+    teachersAssignedCourses:(req, res) => {
+        let response = {};
+
+        db.teachers.findAll({include: ['assign_teacher_courses']},{
+            where: {
+                t_id: notEmpty
+            }
+        }).then((data) => {
+            console.log("");
+            response.statusCode = 200;
+            response.body = JSON.stringify({
+                data: data
+            });
+            res.status(response.statusCode).send(response.body);
+
+        }).catch(err => {
+            response.statusCode = 506;
+            response.body = JSON.stringify({err});
+            console.log(err);
+            res.status(response.statusCode).send(response.body);
+        });
+    },
+
+    //5
+    teachersWithNoofCourses:(req, res) => {
+        let response = {};
+
+        db.findAll({include: [ { teachers, courses,assign_teacher_courses}] } ,{
+
+        }).then((data) => {
+            console.log("");
+            response.statusCode = 200;
+            response.body = JSON.stringify({
+                data: data
+            });
+            res.status(response.statusCode).send(response.body);
+
+        }).catch(err => {
+            response.statusCode = 506;
+            response.body = JSON.stringify({err});
+            console.log(err);
+            res.status(response.statusCode).send(response.body);
+        });
+    }
 
 };
 

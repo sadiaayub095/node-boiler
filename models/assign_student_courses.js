@@ -6,8 +6,8 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   assign_student_courses.associate = function(models) {
     // associations can be defined here
-      assign_student_courses.belongsTo(models.students, {foreignKey:'s_id'});
-      assign_student_courses.belongsTo(models.courses, {foreignKey:'c_id'});
+      assign_student_courses.belongsTo(models.students, { through: 'students', foreignKey:'s_id'});
+      assign_student_courses.belongsTo(models.courses, {through: 'students', foreignKey:'c_id'});
   };
   return assign_student_courses;
 };

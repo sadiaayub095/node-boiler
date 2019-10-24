@@ -9,6 +9,22 @@ const courses  = require('./Controlers/coursesController/courses');
 // Setup Route Bindings
 exports = module.exports = function (app) {
 
+    //db connection setup
+    //var mysqlConnection = mysql.createConnection({
+      //  host: 'localhost',
+        //user: 'root',
+        //password: '',
+        //database: 'trial_db'
+    //});
+
+    //mysqlConnection.connect((err)=> {
+      //  if(!err)
+        //    console.log('DB connection succeded');
+        //else
+          //  console.log('DB connection failed \n Error :' + JSON.stringify(err, undefined,2));
+    //});
+
+
 // middlewares
 // Configure app for bodyParser()
 // lets us grab data from the body of POST
@@ -35,6 +51,11 @@ exports = module.exports = function (app) {
     app.get('/api/courses/:id', courses.getOne);
     app.put('/api/courses/:id', courses.update);
 
-    //app.get('/studentsNotAssignedCourses',students.studentsNotAssignedCourses);
+    app.get('/api/studentsNotAssignedCourses',students.studentsNotAssignedCourses);
+    app.get('/api/teacherAssignedCourses',teachers.teachersAssignedCourses);
+    app.get('/api/CoursesWithTeachers',courses.teachersCourses);
+    app.get('/api/CoursesWithStudents',courses.studentsCourses);
+    app.get('/api/teacherWithNoOfCourses',teachers.teachersWithNoofCourses);
+
 
 };

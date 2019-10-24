@@ -1,6 +1,7 @@
 const db = require("../../../models");
 
 const StudentsController = {
+
     create: (req, res) => {
         const response = {};
 
@@ -106,11 +107,29 @@ const StudentsController = {
             res.status(response.statusCode).send(response.body);
         });
     },
+//1
+    studentsNotAssignedCourses:(req, res) => {
+        let response = {};
 
-   // studentsNotAssignedCourses:(req, res) => {
-     //   let response = {}
-       // db.students.findAll({include "assign_student_course"}).then(data+.)
-    // }
+        db.students.findAll(  {include: ['assign_student_courses']},{
+            where: {
+                assign_student_courses: null
+            }
+        }).then((data) => {
+            console.log("");
+            response.statusCode = 200;
+            response.body = JSON.stringify({
+                data: data
+            });
+            res.status(response.statusCode).send(response.body);
+
+        }).catch(err => {
+            response.statusCode = 506;
+            response.body = JSON.stringify({err});
+            console.log(err);
+            res.status(response.statusCode).send(response.body);
+        });
+    },
 
 };
 
